@@ -6,6 +6,7 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const { format } = require('date-fns');
 const fs = require('fs/promises');
+const authRouter = require('./routes/api/auth');
 require('colors');
 
 const app = express();
@@ -24,6 +25,8 @@ app.use(async (req, res, next) => {
     await fs.appendFile('./server.log', `\n${method} ${url} ${date}`);
     next();
 });
+
+app.use('/api/auth', authRouter);
 
 app.use((req, res) => {
     res.status(404).json({ message: 'Notfound' });

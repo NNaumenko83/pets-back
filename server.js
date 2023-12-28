@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
-require('colors');
 
 const app = require('./app');
 const { DB_HOST, PORT = 5000 } = process.env;
-console.log('DB_HOST,:', DB_HOST);
 
 mongoose
     .connect(DB_HOST)
@@ -17,6 +15,6 @@ mongoose
         });
     })
     .catch((error) => {
-        console.log(error.message);
+        console.log(error.message.bold.red);
         process.exit(1);
     });

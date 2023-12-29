@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const emailRegexp = require('../constants/constants');
+const { emailRegexp } = require('../constants/constants');
 
 const registerSchema = Joi.object({
     name: Joi.string().required(),

@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 
 const { handleMongooseError } = require('../helpers');
-const emailRegexp = require('../constants/constants');
+const { emailRegexp } = require('../constants/constants');
 
 const UserSchema = new Schema(
     {

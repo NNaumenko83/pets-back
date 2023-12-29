@@ -3,7 +3,7 @@ const cors = require('cors');
 require('dotenv').config();
 const logger = require('morgan');
 
-const cookieParser = require('cookie-parser');
+// const cookieParser = require('cookie-parser');
 const { format } = require('date-fns');
 const fs = require('fs/promises');
 const authRouter = require('./routes/api/auth');
@@ -17,7 +17,9 @@ app.use(logger(formatsLogger));
 
 app.use(cors());
 app.use(express.json());
-app.use(cookieParser());
+// app.use(cookieParser());
+// Цей виклик встановлює middleware для обробки данних, які надходять з форм на веб-сторінці у форматі application/x-www-form-urlencoded.
+app.use(express.urlencoded({ extended: false }));
 
 app.use(async (req, res, next) => {
     const { method, url } = req;

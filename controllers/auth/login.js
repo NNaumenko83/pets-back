@@ -3,7 +3,7 @@ const { User } = require('../../models');
 const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 
-const { SECRET_KEY } = process.env;
+const { JWT_ACCESS_SECRET } = process.env;
 
 const login = async (req, res) => {
     const { email, password } = req.body;
@@ -24,7 +24,7 @@ const login = async (req, res) => {
 
     const payload = { id: user._id };
 
-    const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '23h' });
+    const token = jwt.sign(payload, JWT_ACCESS_SECRET, { expiresIn: '23h' });
 
     res.json({ token });
 };

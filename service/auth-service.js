@@ -6,9 +6,9 @@ const tokenService = require('./token-service');
 const UserDto = require('../dtos/user-dto');
 
 class AuthService {
+    // register new user
     async register(name, email, password) {
         const candidate = await User.findOne({ email });
-        console.log('candidate:', candidate);
 
         if (candidate) {
             throw HttpError(409, 'Email already in use');
@@ -21,6 +21,30 @@ class AuthService {
             email,
             password: hashPassword,
         });
+
+        const userDto = new UserDto(user);
+        const tokens = tokenService.generateTokens({ ...userDto });
+        await tokenService.saveToken(userDto.id, tokens.refreshToken);
+
+        return { ...tokens, user: userDto };
+    }
+
+    // login user
+
+    async login(email, password) {
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            throw HttpError(401, 'Email or password invalid');
+        }
+
+        const { password: hash } = user;
+
+        const passwordCompare = bcrypt.compare(password, hash);
+
+        if (!passwordCompare) {
+            throw HttpError(401, 'Email or password invalid');
+        }
 
         const userDto = new UserDto(user);
         const tokens = tokenService.generateTokens({ ...userDto });

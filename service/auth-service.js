@@ -24,7 +24,11 @@ class AuthService {
 
         const userDto = new UserDto(user);
         const tokens = tokenService.generateTokens({ ...userDto });
-        await tokenService.saveToken(userDto.id, tokens.refreshToken);
+        await tokenService.saveToken(
+            userDto.id,
+            tokens.accessToken,
+            tokens.refreshToken,
+        );
 
         return { ...tokens, user: userDto };
     }
@@ -48,7 +52,12 @@ class AuthService {
 
         const userDto = new UserDto(user);
         const tokens = tokenService.generateTokens({ ...userDto });
-        await tokenService.saveToken(userDto.id, tokens.refreshToken);
+        console.log('tokens:', tokens);
+        await tokenService.saveToken(
+            userDto.id,
+            tokens.accessToken,
+            tokens.refreshToken,
+        );
 
         return { ...tokens, user: userDto };
     }
@@ -56,7 +65,12 @@ class AuthService {
     // logout user
 
     async logout(id) {
+        console.log('logout:');
         console.log('id:', id);
+
+        await tokenService.resetToken(id);
+        console.log('after tokenService');
+        return;
     }
 
     // current user

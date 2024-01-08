@@ -14,19 +14,38 @@ class TokenService {
         return { accessToken, refreshToken };
     }
 
-    async saveToken(userId, refreshToken) {
+    async saveToken(userId, accessToken, refreshToken) {
         const tokenData = await Token.findOne({ user: userId });
         console.log('tokenData:', tokenData);
 
         if (tokenData) {
+            tokenData.accessToken = accessToken;
             tokenData.refreshToken = refreshToken;
             return tokenData.save();
         }
 
-        const token = await Token.create({ user: userId, refreshToken });
+        const token = await Token.create({
+            user: userId,
+            accessToken,
+            refreshToken,
+        });
         console.log('token:', token);
 
         return token;
+    }
+
+    async resetToken(userId, accessToken = '', refreshToken = '') {
+        const tokenData = await Token.findOne({
+            user: userId,
+        });
+
+        if (tokenData) {
+            tokenData.refreshToken = refreshToken;
+            tokenData.accessToken = accessToken;
+            return tokenData.save();
+        }
+
+        return;
     }
 }
 

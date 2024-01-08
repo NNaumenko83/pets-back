@@ -52,6 +52,14 @@ class AuthService {
 
         return { ...tokens, user: userDto };
     }
+
+    // logout user
+
+    async logout(id) {
+        console.log('id:', id);
+    }
+
+    // current user
 }
 
 module.exports = new AuthService();

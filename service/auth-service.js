@@ -65,11 +65,8 @@ class AuthService {
     // logout user
 
     async logout(id) {
-        console.log('logout:');
-        console.log('id:', id);
-
         await tokenService.resetToken(id);
-        console.log('after tokenService');
+
         return;
     }
 

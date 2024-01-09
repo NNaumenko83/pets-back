@@ -15,13 +15,11 @@ const authenticate = async (req, res, next) => {
     }
     try {
         const { id } = jwt.verify(token, JWT_ACCESS_SECRET);
-        console.log('id:', id);
-        // const user = await User.findById(id);
+
         const userData = await Token.findOne({ user: id }).populate(
             'user',
             '-createdAt -updatedAt',
         );
-        console.log('userData:', userData);
 
         if (
             !userData.user ||

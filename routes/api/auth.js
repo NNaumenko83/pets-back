@@ -1,4 +1,4 @@
-const { register, login, logout } = require('../../controllers/auth');
+const { register, login, logout, current } = require('../../controllers/auth');
 const { validateBody, authenticate } = require('../../middlewares');
 const { loginSchema, registerSchema } = require('../../schemas');
 
@@ -9,8 +9,8 @@ const router = new Router();
 router.post('/register', validateBody(registerSchema), register);
 router.post('/login', validateBody(loginSchema), login);
 router.post('/logout', authenticate, logout);
+router.get('/current', authenticate, current);
 // router.get('/activate/:link');
-// router.get('/refresh');
 // router.get('/users');
 
 module.exports = router;

@@ -7,7 +7,7 @@ const UserDto = require('../dtos/user-dto');
 
 class AuthService {
     // register new user
-    async register(name, email, password) {
+    async register(email, password) {
         const candidate = await User.findOne({ email });
 
         if (candidate) {
@@ -17,7 +17,6 @@ class AuthService {
         const hashPassword = await bcrypt.hash(password, saltRounds);
 
         const user = await User.create({
-            name,
             email,
             password: hashPassword,
         });
@@ -44,7 +43,8 @@ class AuthService {
 
         const { password: hash } = user;
 
-        const passwordCompare = bcrypt.compare(password, hash);
+        const passwordCompare = await bcrypt.compare(password, hash);
+        console.log('passwordCompare:', passwordCompare);
 
         if (!passwordCompare) {
             throw HttpError(401, 'Email or password invalid');

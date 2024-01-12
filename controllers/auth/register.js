@@ -2,9 +2,9 @@ const { ctrlWrapper } = require('../../helpers');
 const authService = require('../../service/auth-service');
 
 const register = async (req, res) => {
-    const { name, email, password } = req.body;
+    const { email, password } = req.body;
 
-    const userData = await authService.register(name, email, password);
+    const userData = await authService.register(email, password);
 
     res.status(201).json(userData);
 };

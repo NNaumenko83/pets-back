@@ -73,8 +73,8 @@ class AuthService {
 
     // update avatar user
 
-    async uploadAvatar(dataURI) {
-        const avararURL = await avatarService.handleUpload(dataURI);
+    async uploadAvatar(file) {
+        const avararURL = await avatarService.handleUpload(file);
         console.log('avararURL:', avararURL);
         return avararURL;
     }

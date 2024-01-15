@@ -4,6 +4,7 @@ const { User } = require('../models');
 const bcrypt = require('bcrypt');
 const tokenService = require('./token-service');
 const UserDto = require('../dtos/user-dto');
+const avatarService = require('./avatar_service');
 
 class AuthService {
     // register new user
@@ -70,7 +71,13 @@ class AuthService {
         return;
     }
 
-    // current user
+    // update avatar user
+
+    async uploadAvatar(dataURI) {
+        const avararURL = await avatarService.handleUpload(dataURI);
+        console.log('avararURL:', avararURL);
+        return avararURL;
+    }
 }
 
 module.exports = new AuthService();

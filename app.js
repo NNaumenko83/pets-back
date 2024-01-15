@@ -3,9 +3,6 @@ const cors = require('cors');
 require('dotenv').config();
 const logger = require('morgan');
 
-const cloudinary = require('cloudinary').v2;
-const Multer = require('multer');
-
 // const cookieParser = require('cookie-parser');
 const { format } = require('date-fns');
 const fs = require('fs/promises');

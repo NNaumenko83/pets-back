@@ -9,11 +9,25 @@ cloudinary.config({
     api_secret: process.env.API_SECRET,
 });
 
+const resizeOptions = {
+    width: 200,
+    height: 200,
+    gravity: 'face',
+    crop: 'thumb',
+};
+
 class AvatarService {
-    async handleUpload(file) {
+    async handleUpload(userId, file) {
+        console.log('handleUpload:');
         const res = await cloudinary.uploader.upload(file, {
             resource_type: 'auto',
+            folder: 'avatars',
+            public_id: `user_${userId}_avatar`,
+            overwrite: true,
+            transformation: { ...resizeOptions },
         });
+
+        console.log('res:', res);
         return res;
     }
 }

@@ -53,7 +53,7 @@ class AuthService {
 
         const userDto = new UserDto(user);
         const tokens = tokenService.generateTokens({ ...userDto });
-        console.log('tokens:', tokens);
+
         await tokenService.saveToken(
             userDto.id,
             tokens.accessToken,
@@ -73,8 +73,8 @@ class AuthService {
 
     // update avatar user
 
-    async uploadAvatar(file) {
-        const avararURL = await avatarService.handleUpload(file);
+    async uploadAvatar(userId, file) {
+        const avararURL = await avatarService.handleUpload(userId, file);
         console.log('avararURL:', avararURL);
         return avararURL;
     }

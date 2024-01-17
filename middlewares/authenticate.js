@@ -6,7 +6,6 @@ const { Token } = require('../models');
 const { JWT_ACCESS_SECRET } = process.env;
 
 const authenticate = async (req, res, next) => {
-    console.log('authenticate');
     const { authorization = '' } = req.headers;
     const [bearer, token] = authorization.split(' ');
 
@@ -29,7 +28,7 @@ const authenticate = async (req, res, next) => {
             next(HttpError(401, 'Not authorized'));
         }
         req.user = userData.user;
-        console.log('req.user :', req.user);
+
         next();
     } catch (error) {
         next(HttpError(401, 'Not authorized'));

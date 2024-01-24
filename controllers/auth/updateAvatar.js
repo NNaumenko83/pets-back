@@ -9,10 +9,9 @@ const updateAvatar = async (req, res) => {
 
     let dataURI = 'data:' + req.file.mimetype + ';base64,' + b64;
 
-    const data = await authService.uploadAvatar(_id, dataURI);
+    const avatarURL = await authService.uploadAvatar(_id, dataURI);
 
-    const avatar = data.url;
-    res.status(201).json(avatar);
+    res.status(201).json(avatarURL);
 };
 
 module.exports = ctrlWrapper(updateAvatar);

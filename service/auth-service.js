@@ -37,6 +37,7 @@ class AuthService {
 
     async login(email, password) {
         const user = await User.findOne({ email });
+        console.log('user:', user);
 
         if (!user) {
             throw HttpError(401, 'Email or password invalid');
@@ -51,7 +52,10 @@ class AuthService {
         }
 
         const userDto = new UserDto(user);
-        const tokens = tokenService.generateTokens({ ...userDto });
+        const tokens = tokenService.generateTokens({
+            email: userDto.email,
+            id: userDto.id,
+        });
 
         await tokenService.saveToken(
             userDto.id,

@@ -6,7 +6,10 @@ const { emailRegexp } = require('../constants/constants');
 const UserSchema = new Schema(
     {
         // name: { type: String, required: true },
-        avatarURL: String,
+        avatarURL: {
+            type: String,
+            default: '',
+        },
         email: {
             type: String,
             unique: true,

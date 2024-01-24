@@ -45,7 +45,6 @@ class AuthService {
         const { password: hash } = user;
 
         const passwordCompare = await bcrypt.compare(password, hash);
-        console.log('passwordCompare:', passwordCompare);
 
         if (!passwordCompare) {
             throw HttpError(401, 'Email or password invalid');
@@ -74,9 +73,9 @@ class AuthService {
     // update avatar user
 
     async uploadAvatar(userId, file) {
-        const avararURL = await avatarService.handleUpload(userId, file);
-        console.log('avararURL:', avararURL);
-        return avararURL;
+        const avatarURL = await avatarService.handleUpload(userId, file);
+        await User.findByIdAndUpdate(userId, { avatarURL }, { new: true });
+        return avatarURL;
     }
 }
 

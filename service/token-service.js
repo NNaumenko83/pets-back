@@ -28,7 +28,6 @@ class TokenService {
             accessToken,
             refreshToken,
         });
-        console.log('token:', token);
 
         return token;
     }

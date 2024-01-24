@@ -1,8 +1,5 @@
 const cloudinary = require('cloudinary').v2;
 
-console.log('process.env.CLOUD_NAME,:', process.env.CLOUD_NAME);
-console.log('process.env.API_KEY:', process.env.API_KEY);
-console.log('process.env.API_SECRET:', process.env.API_SECRET);
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
     api_key: process.env.API_KEY,
@@ -18,7 +15,6 @@ const resizeOptions = {
 
 class AvatarService {
     async handleUpload(userId, file) {
-        console.log('handleUpload:');
         const res = await cloudinary.uploader.upload(file, {
             resource_type: 'auto',
             folder: 'avatars',
@@ -27,8 +23,7 @@ class AvatarService {
             transformation: { ...resizeOptions },
         });
 
-        console.log('res:', res);
-        return res;
+        return res.url;
     }
 }
 

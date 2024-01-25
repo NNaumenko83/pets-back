@@ -5,7 +5,6 @@ const { emailRegexp } = require('../constants/constants');
 
 const UserSchema = new Schema(
     {
-        // name: { type: String, required: true },
         avatarURL: {
             type: String,
             default: '',
@@ -17,9 +16,25 @@ const UserSchema = new Schema(
             required: true,
         },
         password: { type: String, minlength: 6, required: true },
-        // isActivated: { type: Boolean, default: false },
-        // activationLink: { type: String },
+
+        name: {
+            type: String,
+            default: '',
+        },
+        birthday: {
+            type: String,
+            default: '00.00.0000',
+        },
+        phone: {
+            type: String,
+            default: '+38000000000',
+        },
+        city: {
+            type: String,
+            default: '',
+        },
     },
+
     { versionKey: false, timestamps: true },
 );
 

@@ -66,6 +66,39 @@ class AuthService {
         return { ...tokens, user: userDto };
     }
 
+    // current user
+
+    async current(email) {
+        const user = await User.findOne({ email });
+        console.log('user:', user);
+
+        if (!user) {
+            throw HttpError(401, 'Email or password invalid');
+        }
+
+        const { password: hash } = user;
+
+        const passwordCompare = await bcrypt.compare(password, hash);
+
+        if (!passwordCompare) {
+            throw HttpError(401, 'Email or password invalid');
+        }
+
+        const userDto = new UserDto(user);
+        const tokens = tokenService.generateTokens({
+            email: userDto.email,
+            id: userDto.id,
+        });
+
+        await tokenService.saveToken(
+            userDto.id,
+            tokens.accessToken,
+            tokens.refreshToken,
+        );
+
+        return { ...tokens, user: userDto };
+    }
+
     // logout user
 
     async logout(id) {

@@ -114,6 +114,8 @@ class AuthService {
         await User.findByIdAndUpdate(userId, { avatarURL }, { new: true });
         return avatarURL;
     }
+
+    /* Update user */
 }
 
 module.exports = new AuthService();

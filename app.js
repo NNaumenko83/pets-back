@@ -7,6 +7,7 @@ const logger = require('morgan');
 const { format } = require('date-fns');
 const fs = require('fs/promises');
 const authRouter = require('./routes/api/auth');
+const newsRouter = require('./routes/api/news');
 require('colors');
 
 const app = express();
@@ -29,6 +30,7 @@ app.use(async (req, res, next) => {
 });
 
 app.use('/api/auth', authRouter);
+app.use('/api/news', newsRouter);
 
 app.use((req, res) => {
     res.status(404).json({ message: 'Notfound' });

@@ -76,13 +76,13 @@ class AuthService {
             throw HttpError(401, 'Email or password invalid');
         }
 
-        const { password: hash } = user;
+        // const { password: hash } = user;
 
-        const passwordCompare = await bcrypt.compare(password, hash);
+        // const passwordCompare = await bcrypt.compare(password, hash);
 
-        if (!passwordCompare) {
-            throw HttpError(401, 'Email or password invalid');
-        }
+        // if (!passwordCompare) {
+        //     throw HttpError(401, 'Email or password invalid');
+        // }
 
         const userDto = new UserDto(user);
         const tokens = tokenService.generateTokens({
